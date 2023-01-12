@@ -4,13 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper myHelper;
+
+    private ListView listView;
+
+    private SimpleCursorAdapter adapter;
+
+    public String[] from = new String[] { DatabaseHelper._ID,
+            DatabaseHelper.NAME, DatabaseHelper.ADDRESS};
+
+     int[] to = new int[]{ 0,1,2};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         myHelper = new DatabaseHelper(this);
         myHelper.open();
+
+//        listView = (ListView) findViewById(R.id.list_view);
+//        listView.setEmptyView(findViewById(R.id.empty));
+        Cursor c = myHelper.getAllEmployees();
+
+        adapter = new SimpleCursorAdapter(this,R.layout.activity_view_record,c,from,to,0);
+
+        listView.setAdapter(adapter);
     }
 
     @Override
