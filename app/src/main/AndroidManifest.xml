@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DatabaseExample">
         <activity
+            android:name=".ModifyEmployeeActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddEmployeeActivity"
             android:exported="false" />
         <activity

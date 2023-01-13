@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import static android.os.Build.ID;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Table Name
@@ -69,6 +71,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
         Cursor cursor = database.query(TABLE_NAME, projection,null,null,null,null,null);
     return cursor;
+    }
+
+    public int update(long _id,String name, String address){
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(NAME, name);
+        contentValues.put(ADDRESS, address);
+
+        int count = database.update(TABLE_NAME, contentValues,_ID+ " = "+ _id, null);
+
+        return count;
+    }
+
+    public void delete(long _id){
+        database.delete(TABLE_NAME,_ID + " = "+_id, null);
+
     }
 
 
